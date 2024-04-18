@@ -38,7 +38,8 @@ export const deleteQuestion = async (req, res, next) => {
 // GET
 export const getQuestion = async (req, res, next) => {
   try {
-    const question = await Question.findById(req.params.id);
+    const question = await Question.findById(req.params.id)
+    .populate("createdBy");
     res.status(200).json(question);
   } catch (error) {
     next(error);
@@ -48,7 +49,8 @@ export const getQuestion = async (req, res, next) => {
 // GET ALL
 export const getQuestions = async (req, res, next) => {
   try {
-    const questions = Question.find();
+    const questions = await Question.find()
+    .populate("createdBy")
     res.status(200).json(questions)
   } catch (error) {
     next(error);
