@@ -6,7 +6,7 @@ import cors from "cors";
 
 import authRoute from "./routes/auths.js"
 import userRoute from "./routes/users.js"
-import questionRoute from './routes/questions.js'
+import quizRoute from './routes/quizzes.js'
 
 const app = express();
 dotenv.config();
@@ -33,7 +33,8 @@ app.use(express.json()); // Parse JSON data in the request body
 // Route setup
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
-app.use("/api/question", questionRoute)
+app.use("/api/quizzes", quizRoute)
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {
