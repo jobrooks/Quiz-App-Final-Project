@@ -5,6 +5,8 @@ import { Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage'
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
+import QuizCreatePage from './pages/QuizCreatePage';
+import QuizPage from './pages/QuizPage';
 export default function App() {
   return (
     <div className="App">
@@ -12,6 +14,8 @@ export default function App() {
         <Route path='/' element = {<HomePage />}/>
         <Route path='/register' element = {<RegisterPage />}/>
         <Route path='/login' element = {<LoginPage />}/>
+        <Route path='/create' element = {<QuizCreatePage />} />
+        <Route path='/quiz/:id' element ={<QuizPage />} />
       </Routes>
     </div>
   )

@@ -1,6 +1,4 @@
 import mongoose from 'mongoose';
-
-// Define the QuestionSchema using mongoose.Schema
 const QuestionSchema = new mongoose.Schema({
     text: {
         type: String,
@@ -9,15 +7,30 @@ const QuestionSchema = new mongoose.Schema({
     options: {
         type: [String],
         required: true,
+        validate: {
+            validator: (options) => options.length <= 4,
+            message: "Maximum of 4 options allowed",
+          },
     },
     correctAnswer: {
-        type: String,
+        type: Number,
         required: true,
     },
     difficulty: {
         type: String,
         enum: ['easy', 'medium', 'hard'],
         default: 'medium',
+    },
+})
+
+const QuizSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true,
+    },
+    questions: {
+        type:[QuestionSchema],
+        required: true,
     },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
@@ -26,5 +39,4 @@ const QuestionSchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
- // Export the model using the "Question" name and the defined schema
-export default mongoose.model('Question', QuestionSchema);;
+export default mongoose.model('Quiz', QuizSchema);
