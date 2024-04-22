@@ -1,12 +1,14 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function QuizCreatePage() {
   const [quizData, setQuizData] = useState({
     title: "",
     questions: [{ options: ["", "", "", ""] }],
   });
+  const navigate = useNavigate();
 
   const handleAddQuestion = () => {
     setQuizData((prev) => ({
@@ -28,13 +30,18 @@ function QuizCreatePage() {
     e.preventDefault();
 
     try {
-        console.log(quizData);
-      const res = await axios.post(
-        "http://localhost:8000/api/quizzes/",
-        quizData
-      );
+        const user = JSON.parse(localStorage.getItem('user'));
+        const quizDataWithUser = {
+          ...quizData,
+          createdBy: user._id,
+        };
+        
+        const res = await axios.post(
+          "http://localhost:8000/api/quizzes/",
+          quizDataWithUser
+        );
       console.log(res);
-      // navigate(`/quiz/${res.data.id}`);
+      navigate(`/quiz/${res.data._id}`);
     } catch (error) {
       console.error("Error saving quiz:", error);
     }
@@ -83,7 +90,7 @@ function QuizCreatePage() {
           </div>
           <label className="block mb-2">Correct Answer:</label>
           <input
-            type="text"
+            type="number"
             className="border border-gray-300 rounded px-2 py-1 mb-2 w-full"
             value={question.correctAnswer || ""}
             onChange={(e) =>
