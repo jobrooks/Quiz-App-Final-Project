@@ -56,3 +56,13 @@ export const getQuizzes = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getByTitle = async (req, res, next) => {
+  const { title } = req.params;
+  try {
+    const quiz = await Quiz.findOne({ title });
+    res.status(200).json(quiz);
+  } catch (error) {
+    next(error);
+  }
+};
