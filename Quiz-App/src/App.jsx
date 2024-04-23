@@ -7,6 +7,8 @@ import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import QuizCreatePage from './pages/QuizCreatePage';
 import QuizPage from './pages/QuizPage';
+import SearchPage from './pages/SearchPage';
+import QuizDetails from './pages/QuizDetails';
 export default function App() {
   return (
     <div className="App">
@@ -16,6 +18,8 @@ export default function App() {
         <Route path='/login' element = {<LoginPage />}/>
         <Route path='/create' element = {<QuizCreatePage />} />
         <Route path='/quiz/:id' element ={<QuizPage />} />
+        <Route path='/search' element={<SearchPage />} />
+        <Route path='/search/:title' element ={<QuizDetails />} />
       </Routes>
     </div>
   )
