@@ -9,6 +9,7 @@ import QuizCreatePage from './pages/QuizCreatePage';
 import QuizPage from './pages/QuizPage';
 import SearchPage from './pages/SearchPage';
 import QuizDetails from './pages/QuizDetails';
+import UpdateQuizPage from './pages/UpdateQuizPage';
 export default function App() {
   return (
     <div className="App">
@@ -20,6 +21,7 @@ export default function App() {
         <Route path='/quiz/:id' element ={<QuizPage />} />
         <Route path='/search' element={<SearchPage />} />
         <Route path='/search/:title' element ={<QuizDetails />} />
+        <Route path='/update/:id' element={<UpdateQuizPage />} />
       </Routes>
     </div>
   )

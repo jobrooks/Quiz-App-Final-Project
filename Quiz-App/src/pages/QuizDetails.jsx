@@ -2,10 +2,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const QuizDetails= () => {
   const { title } = useParams();
   const [quiz, setQuiz] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchQuiz = async () => {
@@ -24,6 +26,19 @@ const QuizDetails= () => {
 
   if (!quiz) {
     return <div>Loading...</div>;
+  }
+
+  const handleUpdate = () =>{
+    navigate(`/update/${quiz._id}`);
+  }
+
+  const handleDelete = async () =>{
+    try {
+      await axios.delete(`http://localhost:8000/api/quizzes/${quiz._id}`);
+      navigate('/')
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
@@ -45,6 +60,20 @@ const QuizDetails= () => {
           </li>
         ))}
       </ul>
+      <div className="mt-4">
+        <button
+          onClick={handleUpdate}
+          className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+        >
+          Update
+        </button>
+        <button
+          onClick={handleDelete}
+          className="bg-red-500 text-white px-4 py-2 rounded"
+        >
+          Delete
+        </button>
+      </div>
     </div>
   );
 };
